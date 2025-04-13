@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors Game</title>
+    <link rel="icon" href="game.png">
+    <style>
+        *{
+    margin: 0px;
+    padding: 0px;
+}
+h1{
+    color:white;
+    background-color:#081b31;
+    height: 80px;
+    text-align: center;
+    line-height: 80px;
+}
+.container{
+    height: 160px;
+    width:160px;
+    margin:1.5rem;
+    margin-top: 100px;
+    margin-bottom:50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.container:hover{
+    background-color: #081b31;
+
+}
+img{
+    height: 150px;
+    width:150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.containers{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.score-board{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px;
+    font-size:25Px;
+    margin-top: 0px;
+}
+.C-score{
+    margin-left: 200px; 
+}
+
+p{
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+#computer{
+    margin-left:50px;;
+}
+button{
+    padding:20px;
+    border-radius:15pX;
+    border: none;
+    background-color: #081b31; 
+    color: white; 
+    font-size: 25px;
+
+}
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    </style>
+</head>
+<body>
+    <h1>Rock Paper Scissors</h1>
+    <div class="containers">
+        <div class="container" id="rock">
+            <img src="rock.png" alt="rock" class="choice" id="rock">
+        </div>
+        <div class="container" id="paper">
+            <img src="paper.png" alt="paper" class="choice" id="paper">
+    </div>
+        <div class="container" id="scissors">
+            <img src="scissors.png" alt="scissors" class="choice" id="scissors">
+        </div>
+    </div>
+    <div class="score-board">
+       <div class="U-score">
+        <p id="user">0</p>
+        <h3>You</h3>
+       </div>
+         <div class="C-score">
+          <p id="computer">0</p>
+          <h3>Computer</h3>
+    </div>
+
+    </div>
+    <div class="btn">   
+         <button>Play Your Move</button>
+    </div>
+
+    <script>
+        let userscore = 0;
+let computerscore = 0;
+
+const choices = document.querySelectorAll(".container");
+let btn =document.querySelector("button");
+let user=document.querySelector("#user");
+let computer=document.querySelector("#computer");
+let userScore=0;
+let computerScore=0;
+const gencompchoice = () => {
+    const options=["rock","paper","scissors"];
+    const randomnumber=Math.floor(Math.random()*3);
+    return options[randomnumber];
+};
+const showwin = (userwin) => {
+    if(userwin){
+        console.log("You win !");
+        btn.innerText="You Win !";
+        userScore=userScore+1;
+        user.innerText=userScore;
+        btn.style.backgroundColor="green";
+    }
+
+    else{
+        console.log("You lose !");
+        btn.innerText="You Lose !";
+        computerScore=computerScore+1;
+        computer.innerText=computerScore;
+        btn.style.backgroundColor="red";
+    }
+}; 
+const playgame=(userchoice)=>{
+    console.log("userchoice = ",userchoice);
+    const compchoice=gencompchoice();
+    console.log("compchoice = ",compchoice); 
+
+    if(userchoice === compchoice){
+        console.log("Draw a game !");
+        btn.innerText="Draw a game ! play again.";
+        btn.style.backgroundColor="#081b31";
+
+    }else{
+        let userwin=true;
+
+        if(userchoice ==="rock"){
+            userwin= compchoice==="paper"?false:true;
+        
+        }
+        else if(userchoice ==="paper"){
+            userwin= compchoice==="scissors"?false:true;
+        }
+        else{
+            userwin= compchoice==="rock"?false:true;
+        }  
+        showwin(userwin);}
+
+};
+choices.forEach((container) =>{
+    container.addEventListener("click",()=>{
+        const choiceId=container.getAttribute("id");
+        playgame(choiceId);
+    });
+});
+    </script>
+</body>
+</html>
